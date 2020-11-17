@@ -9,7 +9,8 @@ public class RealInternet implements InternetInterface{
     }
 
     @Override
-    public void connect() {
+    public void connect(String destination) {
+        this.URLAddress = destination;
         System.out.println("I am connecting to "  + URLAddress);
     }
 }

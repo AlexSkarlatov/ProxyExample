@@ -31,28 +31,37 @@ public class ProxyInternet implements InternetInterface{
         this.destination = destination;
     }
 
-    public void useConnect(String address) throws Exception {
-        connect();
+    public ProxyInternet() {
+
     }
-    public boolean destinationIsBanned(){
-        for (String unit : banned
-             ) {
-            if(unit.equalsIgnoreCase(destination)){
-                return true;
-            }
+
+    public void useConnect(String address) throws Exception {
+        connect(address);
+    }
+    public boolean destinationIsBanned() {
+
+        if (banned.contains(this.destination)) {
+            return true;
+
+//            return false;
         }
         return false;
     }
     @Override
-    public void connect() throws Exception {
+    public void connect(String destination) throws Exception {
+        this.destination = destination;
+        if(banned.contains(this.destination))
+            throw new Exception("this is not allowed website");
+
         if(realInternet == null ){
             realInternet = new RealInternet(destination);
-            if(destinationIsBanned()){
-                throw new Exception("this destination is banned I will go no further");
-//                System.out.println("this destination is banned I will go no further");
-//                return;
-            }
+
+//            if(destinationIsBanned()){
+//                throw new Exception("this destination is banned I will go no further");
+////                System.out.println("this destination is banned I will go no further");
+////                return;
+//            }
         }
-        realInternet.connect();
+        realInternet.connect(destination);
     }
 }
