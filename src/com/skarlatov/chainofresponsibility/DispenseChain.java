@@ -22,7 +22,7 @@ class Dollar50Dispenser implements DispenseChain{
         if( cur.getAmount() > 50){
             int num = cur.getAmount() / 50;
             int remainder = cur.getAmount() % 50;
-            System.out.println("Dispensing " + num + "50 notes");
+            System.out.println("Dispensing {{" + num + "}} 50 notes");
             if(remainder != 0 )
                 this.chain.dispense(new Currency(remainder));
         }
@@ -44,7 +44,7 @@ class Dollar20Dispenser implements DispenseChain {
         if(cur.getAmount() > 20){
             int num = cur.getAmount() / 20;
             int remainder = cur.getAmount() % 20 ;
-            System.out.println(" I am now printiong " + num + "Dollar bills" ) ;
+            System.out.println(" I am now printiong{{ " + num + "}} 20 Dollar bills" ) ;
             if(remainder !=0 )
                 successorChain.dispense(new Currency(remainder));
         }
@@ -69,7 +69,7 @@ class Dollar10Dispenser implements DispenseChain{
         if(cur.getAmount() > 10){
             int num = cur.getAmount() / 10;
             int remainder = cur.getAmount() % 10 ;
-            System.out.println(" I am now printiong " + num + "Dollar bills" ) ;
+            System.out.println(" I am now printiong {{" + num + " }} 10 Dollar bills" ) ;
             if( remainder != 0 )
                 successor.dispense(new Currency( remainder ));
         }
@@ -92,7 +92,7 @@ class Dollar1Dispenser implements DispenseChain{
         if(cur.getAmount() > 1){
             int num = cur.getAmount() / 1;
             int remainder = cur.getAmount() % 1 ;
-            System.out.println(" I am now printiong " + num + "Dollar bills" ) ;
+            System.out.println(" I am now printiong {{" + num + "}}Dollar bills" ) ;
             if( remainder != 0 )
                 successor.dispense(new Currency( remainder ));
         }

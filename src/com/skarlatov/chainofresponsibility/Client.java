@@ -1,5 +1,7 @@
 package com.skarlatov.chainofresponsibility;
 
+import java.util.Scanner;
+
 public class Client {
     private DispenseChain c1;
 
@@ -22,7 +24,22 @@ public class Client {
     public static void main(String[] args){
         Client atmDispenser = new Client();// this code intitialize and constructs the chain
         while (true){
+            int amt = 0;
 
+            System.out.println("plz enter the amount of money to dispense");
+            Scanner in = new Scanner(System.in);
+            amt = in.nextInt();
+
+            if(amt < 0){
+                System.out.println("please enter an amount that is a multipel of 10");
+                return;
+            }
+//            if(amt % 10 != 0){
+//                System.out.println("please enter an amount that is a multipel of 10");
+//                return;
+//            }
+            //proccess the request
+            atmDispenser.c1.dispense(new Currency(amt));
         }
     }
 }
