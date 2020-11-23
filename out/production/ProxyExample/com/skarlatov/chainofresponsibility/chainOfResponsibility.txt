@@ -1,0 +1,107 @@
+Overview
+	• The chain of responsibility pattern avoids coupling the sender of a request to its receiver by giving more than on e object a chance to handle the request
+		○ The chain r
+
+
+		○ Chain the receiving objects and pass the request along the chain until an object hadnles it
+	• This pattern processes a series of objects one by one in  a sequential manner
+		○ A source will initiat e this processing
+	• Lets you send requests to an object implicitly through a chain of candidate objets
+	• After ones processing is done if anything is still pending tican be forwared to next object in the chain
+		○ Each receiver contains a reference to another receiver
+	• We can add new objects anytime (run timer) at the theend of a chain
+
+Examples
+	• In an organization, there are some customer care executives who handle feedback/issues from customers
+		○ They will forward these customer issues /aescaltions to the appropriate department in the organization
+		○ Not all departments will start fixing the issue
+		○ The department that seems to be responsible will take a look first and if the dept staff believe that the issue should be forwarded to another department he she will do that
+	• Several class libraries use the chain of responsibility pattern to handle user events
+		○ When the suer clicks the mouse or presses a key, an events get generated and passed along the chain
+		○ Consdier
+	• Consider a congtext sensitive help facility for a cgraph8czl user interface
+		○ User can opbtain hep infrmation on any part of the interface just by clicking on it
+		○ The help button is provided depends on the part of the interface that is selected and its context
+				□  button widge in a dialog box might have different help informtion sthat a similar button the  a main window or another window
+
+
+
+
+
+			*(
+	• Nautral to organize help informaiton according to its generality
+		○ From most specific to the most general or a like a chain
+JDK EXAMPLE
+
+	• An example in the jsk would be the use of the try catch blocks
+		○ Every catch block is kindo of a processor to process that particular e
+		○ When any exception occurs in the try block
+			§ Sends to the first cathc to process
+			§ If the catch block is not able to proc3ss it it forwards the request to next object in chain ( next catch block)
+	• Other packages/methods that use this pattern in the jdk include
+		○ Java.util.logging.logger
+		○ Jafax.servlet.filter#dofilter()
+
+
+So when to use the patern chain of responsibility
+	• When you want to decouple a requesters sender and receiver when multiple objects deteremined at run time are candidates to handle a request
+	• When you do not want to specify handlers explicitly in your code
+	• When you want to issue ar reqquest to on of several objects without specifyint the receiver explicitly
+		○ We expect any of our receivers to handle that request
+		○ When multiple objects can handle a request and the handler doesn’t have to be a specific object
+
+
+What are the advantages and drawbacks
+
+	• Decouples the sender of the request and its receivers
+		○ Frees an ojbect from knowing which other object handles a request
+		○ Both the receiver and the sender have no explicit knowledge of each other
+		○ Simplifies your object
+			§ It d
+	• Simplifies your object
+	• It does not have to know the chains structure or keep direct references to it members
+		○ Keeps a single referende to their successor
+	• Gives you added flexibility in distributing responsibilityies among objects
+
+	• Allows
+		○ Allows you to add or remove responsibilities dynamically by changint he memberss or order of the chain
+	• A drawback is that the execution of the request is not guaranteed
+		○ May fall of the end of the chain if not object handles it
+	• Another drawback is that it can be hard to observe and debug at runtime
+
+
+SUMMARY
+	• With the chain of responsibility pattern , you create a chain of oobjects to examine requests
+	• Each object in turn examinss a request and either handles it or passes it on to the next object in the chain
+Each object in the chain acts as a handler and has a successor object
+
+
+
+Participants
+	• Handler
+		○ Defines an interface for handling requests
+		○ Optional impelments the successor link
+		○ Must be abstract then?
+	• Concrete handler
+		○ Handles requests it is responsible for
+		○ Can access its successor
+		○ If the concrete handler can handle the request, it does so, otherwise it forwards the request to its successor
+		○ C
+	• Client
+		○ Initieates the request to a concrete handler object on the chain
+	• When a client issues a r request the r
+	• When a client issues a request, the request probagates, along the chain unti a concrete handler object takes repsonsibility for handling it
+
+
+
+Important impelmentation considerations
+	• Client does not know which part of the chain will be processing the request
+		○ It will send the request to the firs object in the chain
+	• Each object in the chain will have its own implememantation to process the request
+		○ Either full or partial or to send it to the next object in the chain
+	• Every object in the chain should have a reference to the next objec t in chain to forward the request to this is achieved by composition
+	• Creating the chain carefully is very important
+		○ There might be a case thath the request will never be forwarded to a particular processor or there are no objects in the  chain who are able to handle the request
+			§ Add a check to make sure it gets processed fully by all the processors
+			§ Or hrow an exception if the request reqaches the last object and there are not fourther objects in the chain to forward the request to
+
