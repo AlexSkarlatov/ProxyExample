@@ -1,0 +1,155 @@
+aaa
+Overview
+	• The command design pattern encapsulates a request as an object (command)
+		○ Lets you parameterize clients with different requests
+			§ You can queue or log these requests as well as supporting undoing these requests
+	• The command object encapsulates a request by binding together a set of actions on a specific reeeceiver
+		○ Does this by exposing just one method execute() that causes some actions to be invoked on the receiver
+	• The commands execute method can store state for reversing tis effects of the commnd itself thus supporting an undo operation
+		○ Or ou can add an reverExecute() method that reverses the effects of a previous call to execute
+	• The pattern can also be supporting logging changes so that they can be reapplied in case of a system crash
+
+
+	• This pattern is a data driven design pattern
+	• It is widely used for undo / redo operations
+	• A callback function can be designed with this pattern
+	• It is very useful when we model transactions which can be responsible  for changes in data
+	• Makes our code extensible
+	• As we can add enw commmands without changing existing coder
+	• This pattern allows us to issue requests to obje ts without knowing anything about the operation being requested or the receiver of the request
+
+
+EXAMPLES
+	• We could use the command pattern when placing orders to buy and sell stocks
+		○ We would create an interface order which acts as a command buying and selling as concrete classes a stock class could act as the request
+		○ A class broker could act as an invoker object
+			§ Taskes and palces orders
+	• The broker object uses command pattern to identify which object will execute which command based on the type of command
+	• Another example would be a user interface toolkit
+		○ Includes objects like buttons and menus
+			§ Carry out requests in response to use input
+			§ The toolkit cannot impelement the request explicitly in the button or menu
+			§ No way of knowing the receiver of the request or the operations that will cary it out
+	• The command pattern lets toolkit objects make requests of usnpecified oapplication objects by turning the request itself into an object
+		○ Object can be stored and passed arouind like other objects
+
+
+Example sof the undo and redo
+	• We can undo and redo many operations in our daily life
+		○ We can erase a pencil draing with a rubber
+		○ We can re architect our living places
+		○ We can forget bad memories and start a fresh journey
+	• Undo redo operations are part of our life
+		○ We are doing these operations through some commands either externally or internally
+	• The above scenario applies with ht microsoft paint application
+		○ We can do the undo redo operations easily through some menu options or shortcut keys
+
+When is best time to use this pattern
+
+	• When you want to parameterize objets by an action to perform
+	• When you want to parameterize objects by an
+	• When you specify queuee and execute requests at fdifferent times
+	• A command object can have a lifetime independent of the original request
+	• When you want to support undo
+		○ The command execute method can store state for reversing effects in the command itself
+		○ Wh
+	• When you want to support logging changes so that they can be reapplied in case of a ssytme crash
+	• When you want to implememtn callback method
+	• Can augment command interface with lload and store operations
+		○ Keep a persisten log of changes
+	• This is all about decoupling asd separation
+
+Summary
+This I
+	• This allabout decoupling and separation
+	• The command pattern decouples an object making a request from the one that knows how to perform it
+	• A command object is at the center of this decoupling and encapsulates ar eceiver with an action or set of actions
+	• Commands may support undo by implementing an undo mehtod that resotres the object to its previouis state
+	• Commands may also be used to implemente logging and transactional systems
+	• Commands can be extended easily
+	• While we sue them we do not need to change the classes in the sysstem
+
+	• In the chain of responsibility pattern we forwarde a request along a chain of objects with the hope thaty any one of the objects along that chain will handle the request
+	• In the command pattern we will forward the request to a specific object
+
+
+	*
+
+
+	An overview of IMPLEMENTATION
+	• REMEMBER, REQUESTS ARE ENCAPSULATED AS OBJECTS
+	• Four terms are associated with the implementation of this pattern
+		○ Invoker, client , command , and receiver
+	• A command object is capable of calling a particular method in the receiver
+	• An invoker only knows about the command interface
+		○ It is totally unaware of the concrete commands
+	• The cleint object holds the invoker object and the command objects
+		○ The cleiint decides which of these commands needs to execute at a particular point in time
+
+Participants
+	• Command
+		○ Declares an interface for all commands
+		○ A command is invoked through its execute method
+			§ Will ask a receiver to perform an action
+		○ May include an undo() method
+	• ConcreteCommand
+		○ Defines a binding between a receiver object and an action
+		○ Invoker makes a request by calling execute() and this class carries it out by calling one or more actions on the receiver
+	• Client
+		○ Creates a ConcreteCommand to carry out the request by calling its execute() method
+	• Invoker
+		○ Asks the command to carry out the request by calling its execute method
+	• Receiver
+		○ Knows how to perform the work needed to carry out a reeqeust
+		○ Any class can serve as a receiver
+
+
+What is the WORKFLOW
+	• The client creates a ConcreteCommand object and specifies its receiver
+		○ Creates the receiver object as well and then attaches it to the command in the constructor
+	• An invoker object stores the concreteCommand object
+		○ Client creates the invoker object and attaaches the command object in the constructor
+			§ May also instead just passs the command to the execute method
+	• The inoker issues a request by calling execute , using the command ojbect (previously attache or passed in as a parameter to execute)
+		○ When commands are undoable, ConcreteCommand stores state for undowing the command prior to invoking execute
+	• When client program executes the action via the invoker, it is processed based on the command nad receiver object
+		○ The concrete command object invokes the appropriate method on its receiver to carry out the specific request
+Sequence diagram
+
+Shows much decoupling
+	• Shows the interactions between objects
+		○ The command decouples the invoker from the receiver and the request it carries out.
+
+
+
+
+
+Implementation details
+	• The command decouples the object that invokes the operation from the one that knows how to perform it
+	• Commands ar first-class objects
+		○ Can be manipulated and extended like any other object
+	• Command objects can be one of two categories:
+		○ The categeories are
+			§ Dumb
+				□ These objects delegate the requeired action to a receiver object
+			§ Smart
+				□ These implement everything itself without delegating to a receiver object
+	• This pattern I s easily extendible
+		○ We can add new action methods in receivers and create new command implementations without changing the client code
+	• Done drawback is that the code gets huuuuuge and confusing with a high number of action methods
+		○ You end up with a lot of small classes
+
+
+
+
+Summarization summary
+	• The command object is the core of command design pattern that defines the contract for implmemt
+	• Receiver implementation is separate from command implementation
+	• Command implementtion classes chooose the method to invoke on receiver object for ever mehtod in receiver there wil be a command implementation 	W
+
+
+	• Works as a bridge between receiver and action methods
+
+	• Invoeker class jusrt forwards the request from the client to the command object
+	• Client is responsible for instantiating appropriate command and receiver objects and then associating them together
+Client is also responsible for instntiating invoker object and associating command object with it and executing the action method
